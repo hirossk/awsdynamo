@@ -9,9 +9,28 @@
 <body class="bg-gray-100 p-6">
 <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
     <h1 class="text-center text-2xl font-bold mb-6">TODO管理</h1>
-    <div class="text-right mb-3">
-        <a href="{{ url_for('todo_form') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">追加</a>
-    </div>
+    
+    <!-- 追加フォーム -->
+    <form action="{{ url_for('add_todo') }}" method="post" class="mb-6">
+        <div class="mb-4">
+            <label class="block text-gray-700">タイトル</label>
+            <input type="text" name="title" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">詳細</label>
+            <input type="text" name="detail" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">ステータス</label>
+            <select name="status" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="未完了">未完了</option>
+                <option value="進行中">進行中</option>
+                <option value="完了">完了</option>
+            </select>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">追加</button>
+    </form>
+    
     <table class="w-full border-collapse border border-gray-300 text-center">
         <thead class="bg-green-200">
         <tr>
