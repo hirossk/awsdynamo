@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>TODO管理</title>
+</head>
+<body class="bg-gray-100 p-6">
+<div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-center text-2xl font-bold mb-6">TODO管理</h1>
+    <div class="text-right mb-3">
+        <a href="{{ url_for('todo_form') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">追加</a>
+    </div>
+    <table class="w-full border-collapse border border-gray-300 text-center">
+        <thead class="bg-green-200">
+        <tr>
+            <th class="border border-gray-300 px-4 py-2">タイトル</th>
+            <th class="border border-gray-300 px-4 py-2">詳細</th>
+            <th class="border border-gray-300 px-4 py-2">ステータス</th>
+            <th class="border border-gray-300 px-4 py-2">アクション</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+        <tr class="border border-gray-300">
+            <td class="border border-gray-300 px-4 py-2">{{ item.Title }}</td>
+            <td class="border border-gray-300 px-4 py-2">{{ item.Detail }}</td>
+            <td class="border border-gray-300 px-4 py-2">{{ item.TodoStatus }}</td>
+            <td class="border border-gray-300 px-4 py-2">
+                <a href="{{ url_for('todo_form', todo_id=item.TodoID) }}" class="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600">更新</a>
+                <form action="{{ url_for('delete_todo') }}" method="post" class="inline-block">
+                    <input type="hidden" name="todo_id" value="{{ item.TodoID }}">
+                    <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600">削除</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
