@@ -4,7 +4,7 @@ from boto3.dynamodb.types import TypeDeserializer
 # テーブル名の設定
 TODO_TABLE = "TodoTable"  # TODOリストを管理するテーブル
 TODO_COUNTER_TABLE = "CounterTable"  # シーケンシャルなIDを管理するカウンターテーブル
-dynamodb_client = boto3.client("dynamodb")  # DynamoDBクライアントを作成
+dynamodb_client = boto3.client("dynamodb", region_name="us-east-1")  # DynamoDBクライアントを作成
 
 def dynamo_to_python(dynamo_object):
     """DynamoDBのレスポンスをPythonの辞書型に変換する関数"""
