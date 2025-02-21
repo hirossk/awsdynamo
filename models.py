@@ -29,7 +29,7 @@ def get_item(args):
 
     todo_id = int(args.get("todo_id"))  # IDを整数型に変換
     item = dynamodb_client.get_item(
-        TableName=TODO_TABLE, Key={"TodoID": {"N": str(todo_id)}}
+        TableName=TODO_TABLE, Key={"TodoID": {"S": str(todo_id)}}
     ).get("Item")
 
     return dynamo_to_python(item) if item else {}  # 取得できなかった場合は空の辞書を返す
@@ -54,7 +54,7 @@ def put_item(form):
     dynamodb_client.put_item(
         TableName=TODO_TABLE,
         Item={
-            "TodoID": {"N": str(todo_id)},  # 数値型のTodoIDを設定
+            "TodoID": {"S": str(todo_id)},  # 数値型のTodoIDを設定
             "Title": {"S": title},  # 文字列型のタイトル
             "Detail": {"S": detail},  # 文字列型の詳細
             "TodoStatus": {"S": status},  # 文字列型のステータス
@@ -71,7 +71,7 @@ def update_item(form):
     # 更新処理
     dynamodb_client.update_item(
         TableName=TODO_TABLE,
-        Key={"TodoID": {"N": str(todo_id)}},  # 更新対象のキー
+        Key={"TodoID": {"S": str(todo_id)}},  # 更新対象のキー
         UpdateExpression="SET Title=:title, Detail=:detail, TodoStatus=:status",  # 更新内容
         ExpressionAttributeValues={
             ":title": {"S": title},
@@ -83,5 +83,5 @@ def update_item(form):
 def delete_item(todo_id):
     """指定したTodoIDのTODOを削除する関数"""
     dynamodb_client.delete_item(
-        TableName=TODO_TABLE, Key={"TodoID": {"N": str(todo_id)}}
+        TableName=TODO_TABLE, Key={"TodoID": {"S": str(todo_id)}}
     )
